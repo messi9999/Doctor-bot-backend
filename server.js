@@ -18,10 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 app.use(cookieParser());
-
-app.get("/", async (req, res) => {
-  res.send({ result: "Hello" });
-});
+app.use(express.static(__dirname + '/public'));
+// app.get("/", async (req, res) => {
+//   res.send({ result: "Hello" });
+// });
 
 //Route for create articles
 app.use("/api/article", artRouter);
@@ -61,6 +61,7 @@ async function createDatabase() {
       }
     );
   } catch (err) {
+    console.log("mariadb error")
     throw err;
   } finally {
     if (conn) return conn.end();
